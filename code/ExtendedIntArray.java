@@ -26,6 +26,14 @@ public class ExtendedIntArray{
 		this.array = new int[0];
 	}
 	
+	public int get(int index) {
+		if (index >= getLength()) {
+			throw new IllegalArgumentException("Error, too high index");
+		}
+		
+		return getArray()[index];
+	}
+	
 	public void addToEnd(int value) {
 		this.array = Arrays.copyOf(this.array, this.array.length + 1);
 		
@@ -133,11 +141,11 @@ public class ExtendedIntArray{
 	}
 	
 	public boolean isSorted() {
-		return this.isSorted();
+		return sorted;
 	} 
 	
 	public void sortArray() {
-		if (this.sorted) {
+		if (isSorted()) {
 			return;
 		}
 		
@@ -167,9 +175,29 @@ public class ExtendedIntArray{
 		
 		sortArray();
 		
-		int[] indexes = new int[] {-1, -1, -1};
+		return find3Numbers(sum, getArray(), 0, 1, getLength()-1);
+	}
+	
+	private static int[] find3Numbers(int sum, int[] array, 
+			int base, int lower, int upper) {
 		
-		return indexes;
+		int valueSum = array[base] + array[lower] + array[upper];
+		
+		if (base + 1 == upper) {
+			return null;
+			
+		} else if (valueSum == sum) {
+			return new int[]{base, lower, upper};
+			
+		} else if (lower + 1 == upper) {
+			return find3Numbers(sum, array, base+1, base+2, array.length-1);
+			
+		} else if (valueSum < sum) {
+			return find3Numbers(sum, array, base, lower+1, upper);
+			
+		} else { // if (valueSum > sum) {
+			return find3Numbers(sum, array, base, lower, upper-1);
+		}
 	}
 	
 	public static int[] find3Numbers(int[] array, int sum) {
