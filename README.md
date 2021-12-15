@@ -2,6 +2,14 @@
 
 ## How to clone and run code/tests from eclipse
 
+### 0. Pre-requisites:
+
+For this to work properly, eclipse should be used. This may work with other
+code editors; however, these instructions are intended for use with eclipse.
+
+As well, Junit 4 must be installed and ready to use in eclipse. The test 
+cases use Junit 4, and it must exist for them to run properly.
+
 ### 1. Cloning the git repository:
 	
 To clone the git repository, go to 
