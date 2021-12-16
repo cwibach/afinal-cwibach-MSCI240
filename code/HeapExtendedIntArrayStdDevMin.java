@@ -11,6 +11,9 @@ import java.util.NoSuchElementException;
 
 public class HeapExtendedIntArrayStdDevMin extends HeapExtendedIntArray {
 	
+	/**
+	 * Create an ExtendedIntArrayHeap for finding minimum standard deviations
+	 */
 	public HeapExtendedIntArrayStdDevMin() {
 		// Create new ArrayList for elements
 		elements = new ArrayList<ExtendedIntArray>();
@@ -18,6 +21,10 @@ public class HeapExtendedIntArrayStdDevMin extends HeapExtendedIntArray {
 		elements.add(new ExtendedIntArray());
 	}
 	
+	/**
+	 * Add an ExtendedIntArray to the elements, then rise as it should be risen
+	 * @param array: ExtendedIntArray to add 
+	 */
 	public void add(ExtendedIntArray value) {
 		// Add the ExtendedIntArray to the end of elements
 		elements.add(value);
@@ -43,6 +50,10 @@ public class HeapExtendedIntArrayStdDevMin extends HeapExtendedIntArray {
 		}
 	}
 	
+	/**
+	 * Remove the top ExtendedIntArray and move the bottom to top and sink it
+	 * @return: The removed ExtendedIntArray
+	 */
 	public ExtendedIntArray remove() {
 		// If less than one useful element exists
 		if (elements.size() <= 1){
@@ -65,6 +76,10 @@ public class HeapExtendedIntArrayStdDevMin extends HeapExtendedIntArray {
 		return result;
 	}
 	
+	/**
+	 * Move the top value down the heap as far as it should be, replacing it 
+	 * 		with the proper of its possible replacements
+	 */
 	private void swimDown() {
 		// Set initial index of ExtendedIntArray as 1
 		int i = 1;

@@ -19,14 +19,26 @@ public class ExtendedIntArray{
 	private boolean stdDevFound = false; // whether std. dev. is up to date
 	private boolean sorted = false; // whether the array is definitely sorted
 	
+	/**
+	 * Constructor to make new ExtendedIntArray objects
+	 * @param array: Integer array to set as this.array
+	 */
  	public ExtendedIntArray(int[] array) {
 		this.array = array; // set the array
 	}
 	
+ 	/**
+ 	 * Constructor to make new ExtendedIntArray objects
+ 	 */
 	public ExtendedIntArray() {
 		this.array = new int[0]; // set the array to be empty
 	}
 	
+	/**
+	 * Retrieve a value at a specific index of the array
+	 * @param index: index to retrieve value at
+	 * @return: value retrieved from index
+	 */
 	public int get(int index) {
 		// if the index is too high
 		if (index >= getLength()) {
@@ -36,6 +48,10 @@ public class ExtendedIntArray{
 		return getArray()[index]; // return the index's value
 	}
 	
+	/**
+	 * Add a new integer to the end of this.array
+	 * @param value: integer to add to the array
+	 */
 	public void addToEnd(int value) {
 		// set the array to be one larger
 		this.array = Arrays.copyOf(this.array, this.array.length + 1);
@@ -50,6 +66,10 @@ public class ExtendedIntArray{
 		sorted = false;
 	}
 	
+	/**
+	 * Get a string representation of this.array
+	 * @return: the string representation of this.array
+	 */
 	public String toString() {
 		// If the length is zero, return a visual empty array
 		if (getLength() == 0) {
@@ -74,14 +94,25 @@ public class ExtendedIntArray{
 		return result; // return the amalgamized string
 	}
 	
+	/**
+	 * Retrieve the integer array
+	 * @return: this.array
+	 */
 	public int[] getArray() {
 		return this.array; // return the current array
 	}
 	
+	/**
+	 * Get the length of this.array
+	 * @return: the length of the array
+	 */
 	public int getLength() {
 		return getArray().length; // return the length of the array
 	}
 	
+	/**
+	 * Calculate and store the sum of this.array's values
+	 */
 	private void calculateSum() {
 		if (this.sumFound) { // if the sum is up to date
 			return; // do nothing
@@ -97,12 +128,19 @@ public class ExtendedIntArray{
 		sumFound = true; // mark the sum as up to date
 	}
 	
+	/**
+	 * Get the sum of values in the array
+	 * @return: the sum of the array
+	 */
 	public int getSum() {
 		this.calculateSum(); // calculate the sum
 		
 		return sum; // return the sum
 	}
 	
+	/**
+	 * Calculate and store the mean of this.array's values
+	 */
 	private void calculateMean() {
 		if (this.meanFound) { // if the mean is up to date already
 			return; // do nothing
@@ -117,12 +155,19 @@ public class ExtendedIntArray{
 		meanFound = true; // mark the mean as up to date
 	}
 	
+	/**
+	 * Get the mean of the values in the array
+	 * @return: the mean of the array values
+	 */
 	public double getMean() {
 		this.calculateMean(); // calculate the mean
 		
 		return this.mean; // return the mean
 	}
 	
+	/**
+	 * Calculate and store the standard deviation of this.array's values
+	 */
 	private void calculateStdDev() {
 		if (this.stdDevFound) { // if the standard deviation is up to date
 			return; // do nothing
@@ -146,16 +191,27 @@ public class ExtendedIntArray{
 		stdDevFound = true; // mark as up to date
 	}
 	
+	/**
+	 * Get the standard deviation of the values in the array
+	 * @return: The standard deviation of the array
+	 */
 	public double getStandardDeviation() {
 		this.calculateStdDev(); // calculate standard deviation
 		
 		return this.stdDev; // return standard deviation
 	}
 	
+	/**
+	 * Determine if this.array is currently sorted
+	 * @return: True if sorted, false if not
+	 */
 	public boolean isSorted() {
 		return sorted; // return if it confirmed to be sorted
 	} 
 	
+	/**
+	 * Sort this.array if it is not already sorted
+	 */
 	public void sortArray() {
 		if (isSorted()) { // if it is currently sorted
 			return; // do nothing
@@ -181,6 +237,12 @@ public class ExtendedIntArray{
 		this.sorted = true; // mark the array as sorted
 	}
 	
+	/**
+	 * Swap the given array values at the given indices
+	 * @param array: Array to swap values in
+	 * @param first: First index to swap value of
+	 * @param second: Second index to swap value of
+	 */
 	private static void swap(int[] array, int first, int second) {
 		// save the first location's value as a temporary integer
 		int temp = array[first];
@@ -189,7 +251,15 @@ public class ExtendedIntArray{
 		// set the second location's value to be the temporary value
 		array[second] = temp;
 	}
-
+	
+	/**
+	 * Find indexes of 3 values in sorted version of given array that add up 
+	 * 	to given sum
+	 * @param array: Array to sort and find values in
+	 * @param sum: Sum to find numbers to add up to
+	 * @return: Array of indexes of sorted values that add up to sum, 
+	 * 				or null if they do not exist.
+	 */
 	public static int[] find3Numbers(int[] array, int sum) {
 		// create an ExtendedIntArray with the array
 		ExtendedIntArray goodArray = new ExtendedIntArray(array);
@@ -198,6 +268,13 @@ public class ExtendedIntArray{
 		return goodArray.find3Numbers(sum);
 	}
 	
+	/**
+	 * Find indexes of 3 values in sorted version of this.array that add up 
+	 * 	to given sum
+	 * @param sum: Sum to find numbers to add up to
+	 * @return: Array of indexes of sorted values that add up to sum, 
+	 * 				or null if they do not exist.
+	 */
 	public int[] find3Numbers(int sum) {
 		if (getLength() < 3) { // if the length is less than 3
 			throw new IllegalArgumentException("Array length less than 3");
@@ -209,6 +286,25 @@ public class ExtendedIntArray{
 		return find3Numbers(sum, getArray(), 0, 1, getLength()-1);
 	}
 	
+	/**
+	 * Recursive method to search for indexes to add up to target sum.
+	 * Each iteration: Check if the end of searching has been reached -> null
+	 * 				   Check if current index sums are equal to target sum
+	 * 				   Check if base should be increased
+	 * 				   Check if sum is less than or greater than to adjust 
+	 * 						lower or upper bound
+	 * @param sum: Target sum to add up to
+	 * @param array: Array with values being checked
+	 * @param base: Lowest index to check other indexes with, increase over 
+	 * 				time until base is 1 away from end
+	 * @param lower: lower bound to slowly increase when sum too low until 
+	 * 					overlaps with upper bound, then increase base and 
+	 * 					reset to one above new base
+	 * @param upper: upper bound to slowly decrease when sum too high until 
+	 * 					overlaps with lower bound, then increase base and 
+	 * 					reset to end of array
+	 * @return: Indexes that add to sum, or null if not found
+	 */
 	private static int[] find3Numbers(int sum, int[] array, 
 			int base, int lower, int upper) {
 		
